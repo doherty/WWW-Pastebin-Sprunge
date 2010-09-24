@@ -35,7 +35,7 @@ use overload q|""| => sub { shift->paste_uri; };
 The module provides interface to paste large texts or files to
 L<http://sprunge.us>
 
-=head1 CONSTRUCTOR
+=head1 METHODS
 
 =head2 new
 
@@ -98,8 +98,6 @@ sub new {
 
     return $self;
 }
-
-=head1 METHODS
 
 =head2 paste
 
