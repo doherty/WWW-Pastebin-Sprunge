@@ -67,7 +67,7 @@ sub content {
 __END__
 
 
-=head1 CONSTRUCTOR
+=head1 METHODS
 
 =head2 C<new>
 
@@ -106,8 +106,6 @@ not do anything if you specify the C<ua> argument as well. B<Defaults to:>
 plain boring default L<LWP::UserAgent> object with C<timeout> argument
 set to whatever C<WWW::Pastebin::Sprunge::Retrieve>'s C<timeout> argument is
 set to as well as C<agent> argument is set to mimic Firefox.
-
-=head1 METHODS
 
 =head2 C<retrieve>
 

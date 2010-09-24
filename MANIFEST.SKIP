@@ -38,3 +38,4 @@
 ^dist\.ini$
 ^MANIFEST\.SKIP$
 ^\.build$
+^weaver\.ini$

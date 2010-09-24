@@ -20,7 +20,7 @@ DESCRIPTION
     The module provides interface to retrieve pastes from
     <http://sprunge.us> website via Perl.
 
-CONSTRUCTOR
+METHODS
   "new"
         my $paster = WWW::Pastebin::Sprunge::Retrieve->new();
 
@@ -56,7 +56,6 @@ CONSTRUCTOR
     whatever "WWW::Pastebin::Sprunge::Retrieve"'s "timeout" argument is set
     to as well as "agent" argument is set to mimic Firefox.
 
-METHODS
   "retrieve"
         my $content = $paster->retrieve('http://sprunge.us/SCLg') or die $paster->error();
 
@@ -120,6 +119,24 @@ METHODS
     pastes. Takes one optional argument which must be an LWP::UserAgent
     object, and the object you specify will be used in any subsequent calls
     to "retrieve()".
+
+AVAILABILITY
+    The latest version of this module is available from the Comprehensive
+    Perl Archive Network (CPAN). Visit <http://www.perl.com/CPAN/> to find a
+    CPAN site near you, or see
+    <http://search.cpan.org/dist/WWW-Pastebin-Sprunge-Retrieve/>.
+
+    The development version lives at
+    <http://github.com/doherty/WWW-Pastebin-Sprunge-Retrieve> and may be
+    cloned from <git://github.com/doherty/WWW-Pastebin-Sprunge-Retrieve>.
+    Instead of sending patches, please fork this project using the standard
+    git and github infrastructure.
+
+BUGS AND LIMITATIONS
+    No bugs have been reported.
+
+    Please report any bugs or feature requests through the web interface at
+    <http://github.com/doherty/WWW-Pastebin-Sprunge-Retrieve/issues>.
 
 AUTHOR
     Mike Doherty <doherty@cs.dal.ca>
