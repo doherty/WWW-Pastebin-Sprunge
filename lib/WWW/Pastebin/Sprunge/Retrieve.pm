@@ -2,7 +2,7 @@ use strict;
 use warnings;
 
 package WWW::Pastebin::Sprunge::Retrieve;
-# ABSTRACT: Retrieves pastes from the sprunge.us pastebin
+# ABSTRACT: retrieves pastes from the sprunge.us pastebin
 
 use URI;
 use base 'WWW::Pastebin::Base::Retrieve';
