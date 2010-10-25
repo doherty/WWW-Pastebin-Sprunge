@@ -1,5 +1,5 @@
 NAME
-    WWW::Pastebin::Sprunge::Retrieve - Retrieves pastes from the sprunge.us
+    WWW::Pastebin::Sprunge::Retrieve - retrieves pastes from the sprunge.us
     pastebin
 
 VERSION
@@ -139,7 +139,7 @@ BUGS AND LIMITATIONS
     <http://github.com/doherty/WWW-Pastebin-Sprunge-Retrieve/issues>.
 
 AUTHOR
-    Mike Doherty <doherty@cs.dal.ca>
+    Mike Doherty <doherty@cpan.org>
 
 COPYRIGHT AND LICENSE
     This software is Copyright (c) 2010 by Mike Doherty.
