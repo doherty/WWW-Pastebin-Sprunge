@@ -1,6 +1,8 @@
 Changelog for WWW::Pastebin::Sprunge::Retrieve
 
 {{$NEXT}}
+
+0.002     2010-11-28
  * Use Perl_5 license
 
 0.001     2010-10-18
