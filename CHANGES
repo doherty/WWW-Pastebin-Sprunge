@@ -1,6 +1,9 @@
 Changelog for WWW::Pastebin::Sprunge
 
 {{$NEXT}}
+ * Merged WWW::P::S::Create and ::Retrieve into a single repository & distribution
+ * Fixed errors with unicode & expanded tests to cover these cases
+ * Expanded test coverage for loading a file
 
 0.002     2010-11-28
  * Use Perl_5 license
