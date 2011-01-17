@@ -7,7 +7,7 @@ use Carp;
 use URI;
 use LWP::UserAgent;
 use HTTP::Request::Common;
-use File::Slurp qw(read_file);
+use Encode;
 use base 'Class::Data::Accessor';
 __PACKAGE__->mk_classaccessors qw(
     ua
@@ -89,8 +89,7 @@ sub new {
     $args{timeout} ||= 30;
     $args{ua} ||= LWP::UserAgent->new(
         timeout => $args{timeout},
-        agent   => 'Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.2.10) '
-                    . 'Gecko/20100915 Ubuntu/10.04 (lucid) Firefox/3.6.10',
+        agent   => 'WWW::Pastebin::Sprunge (+http://p3rl.org/WWW::Pastebin::Sprunge)',
     );
 
     my $self = bless {}, $class;
@@ -168,14 +167,13 @@ sub paste {
     my %args = @_;
     %args = (
         sprunge     => $text,
-
         %args,
     );
 
-    $args{'lang'} = lc $args{'lang'};
+    $args{lang} = lc $args{lang} if $args{lang};
 
-    $args{'file'}
-        and not -e $args{'sprunge'}
+    $args{file}
+        and not -e $args{sprunge}
         and return $self->_set_error("File $args{'sprunge'} does not seem to exist");
 
     my $ua = $self->ua;
@@ -183,15 +181,17 @@ sub paste {
     my @post_request = $self->_make_request_args( \%args );
     # use Data::Dumper;
     # print Dumper \@post_request and die;
-    my $response = $self->ua->request( POST @post_request );
+    my $response = $self->ua->post( @post_request );
     # print Dumper $response and die;
     if ( $response->is_success() ) {
-        my $uri = URI->new($response->{'_content'});
+        my $uri = URI->new($response->{_content});
+        # use Data::Dumper;
+        # die Dumper $response;
         return $self->_set_error(q{Request was successful but I don't see a link to the paste }
                 . $response->code
                 . $response->content
         ) unless $uri;
-        $uri->query($args{'lang'}) if $args{'lang'};
+        $uri->query($args{lang}) if $args{lang};
         return $self->paste_uri($uri);
     }
     else {
@@ -203,8 +203,12 @@ sub _make_request_args {
     my $self = shift;
     my $args = shift;
 
-    if ($args->{'file'}) {
-        $args->{'sprunge'} = read_file($args->{'sprunge'});
+    if ($args->{file}) {
+        open my $fh, '<', $args->{sprunge} or die "Can't open for reading: $!";
+        $args->{sprunge} = do { local $/; <$fh> };
+    }
+    else {
+        $args->{sprunge} = encode_utf8($args->{sprunge});
     }
 
     return (

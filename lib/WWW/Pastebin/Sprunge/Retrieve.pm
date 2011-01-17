@@ -5,74 +5,47 @@ package WWW::Pastebin::Sprunge::Retrieve;
 # ABSTRACT: retrieves pastes from the sprunge.us pastebin
 
 use URI;
-use base 'WWW::Pastebin::Base::Retrieve';
+use Carp;
+use LWP::UserAgent;
+use Encode;
+use base 'Class::Data::Accessor';
+
+__PACKAGE__->mk_classaccessors(qw(
+    ua
+    uri
+    id
+    content
+    error
+    results
+));
+
+use overload q|""| => sub { shift->content };
+
 
 =head1 SYNOPSIS
 
     use strict;
     use warnings;
     use WWW::Pastebin::Sprunge::Retrieve;
-
     my $paster = WWW::Pastebin::Sprunge::Retrieve->new();
-
     my $content = $paster->retrieve('http://sprunge.us/84Pc') or die $paster->error();
-
-    print $content;
+    print $content; # overloaded
 
 =head1 DESCRIPTION
 
-The module provides interface to retrieve pastes from
-L<http://sprunge.us> website via Perl.
-
-=cut
-
-sub _make_uri_and_id {
-    my $self = shift;
-    my $in   = shift;
-
-    my $id;
-    if ( $in =~ m{ (?:http://)? (?:www\.)? sprunge.us/ (\S+?) (?:\?\w+)? $}ix ) {
-        $id = $1;
-    }
-    $id = $in unless (defined $id);
-
-    return ( URI->new("http://sprunge.us/$id"), $id );
-}
-
-sub _parse {
-    my $self    = shift;
-    my $content = shift;
-    my $id      = $self->id;
-
-    if (!defined($content) or !length($content)) {
-        return $self->_set_error('Nothing to parse (empty document retrieved)');
-    }
-    elsif ($content eq "$id not found") {
-        return $self->_set_error('No such paste');
-    }
-    else {
-        $self->results($content);
-        return $self->results($content);
-    }
-}
-
-sub content {
-    my $self = shift;
-
-    return $self->results;
-}
-
+The module provides an interface to retrieve pastes from the
+L<http://sprunge.us> pastebin website via Perl.
 
 =head1 METHODS
 
 =head2 C<new>
 
     my $paster = WWW::Pastebin::Sprunge::Retrieve->new();
-
+    # OR:
     my $paster = WWW::Pastebin::Sprunge::Retrieve->new(
         timeout => 10,
     );
-
+    # OR:
     my $paster = WWW::Pastebin::Sprunge::Retrieve->new(
         ua => LWP::UserAgent->new(
             timeout => 10,
@@ -99,9 +72,29 @@ If the C<timeout> argument is not enough for your needs, feel free
 to specify the C<ua> argument which takes an L<LWP::UserAgent> object
 as a value. B<Note:> the C<timeout> argument to the constructor will
 not do anything if you specify the C<ua> argument as well. B<Defaults to:>
-plain boring default L<LWP::UserAgent> object with C<timeout> argument
-set to whatever C<WWW::Pastebin::Sprunge::Retrieve>'s C<timeout> argument is
-set to as well as C<agent> argument is set to mimic Firefox.
+a L<LWP::UserAgent> object with C<timeout> argument set to 30s, and a
+suitable useragent string.
+
+=cut
+
+sub new {
+    my $class = shift;
+    croak 'new() takes an even number of arguments' if @_ & 1;
+
+    my %args = @_;
+    $args{ +lc } = delete $args{ $_ } for keys %args;
+
+    $args{timeout} ||= 30;
+    $args{ua} ||= LWP::UserAgent->new(
+        timeout => $args{timeout},
+        agent   => 'WWW::Pastebin::Sprunge (+http://p3rl.org/WWW::Pastebin::Sprunge)',
+    );
+
+    my $self = bless {}, $class;
+    $self->ua( $args{ua} );
+
+    return $self;
+}
 
 =head2 C<retrieve>
 
@@ -116,6 +109,84 @@ want to retrieve or just its ID.
 On failure returns either C<undef> or an empty list depending on the context
 and the reason for the error will be available via C<error()> method.
 On success, returns the pasted text.
+
+=cut
+
+sub retrieve {
+    my $self = shift;
+    my $id   = shift;
+
+    $self->$_(undef) for qw( error uri id results );
+
+    return $self->_set_error('Missing or empty paste ID/URL')
+        unless $id;
+
+    (my $uri, $id) = $self->_make_uri_and_id($id, @_) or return;
+
+    $self->uri($uri);
+    $self->id($id);
+
+    my $ua = $self->ua;
+    my $response = $ua->get($uri);
+    if ($response->is_success) {
+        return $self->_get_was_successful($response->content);
+    }
+    else {
+        return $self->_set_error('Network error: ' . $response->status_line);
+    }
+}
+
+sub _get_was_successful {
+    my $self    = shift;
+    my $content = shift;
+
+    return $self->results( $self->_parse($content) );
+}
+
+sub _set_error {
+    my $self         = shift;
+    my $err_or_res   = shift;
+    my $is_net_error = shift;
+
+    if (defined $is_net_error) {
+        $self->error('Network error: ' . $err_or_res->status_line);
+    }
+    else {
+        $self->error($err_or_res);
+    }
+    return;
+}
+
+sub _make_uri_and_id {
+    my $self = shift;
+    my $in   = shift;
+
+    my $id;
+    if ( $in =~ m{ (?:http://)? (?:www\.)? sprunge.us/ (\S+?) (?:\?\w+)? $}ix ) {
+        $id = $1;
+    }
+    $id = $in unless defined $id;
+
+    return ( URI->new("http://sprunge.us/$id"), $id );
+}
+
+sub _parse {
+    my $self    = shift;
+    my $content = shift;
+    my $id      = $self->id;
+
+    if (!defined($content) or !length($content)) {
+        return $self->_set_error('Nothing to parse (empty document retrieved)');
+    }
+    elsif ($content eq "$id not found") {
+        return $self->_set_error('No such paste');
+    }
+    else {
+        $self->results(decode_utf8($content));
+        return $self->content(decode_utf8($content));
+    }
+}
+
 
 =head2 C<error>
 
@@ -161,18 +232,13 @@ returns the actual content of the paste. B<Note:> this method is overloaded
 for this module for interpolation. Thus you can simply interpolate the
 object in a string to get the contents of the paste.
 
-=head2 C<ua>
-
-    my $old_LWP_UA_obj = $paster->ua;
-
-    $paster->ua( LWP::UserAgent->new( timeout => 10, agent => 'foos' );
-
-Returns a currently used L<LWP::UserAgent> object used for retrieving
-pastes. Takes one optional argument which must be an L<LWP::UserAgent>
-object, and the object you specify will be used in any subsequent calls
-to C<retrieve()>.
-
 =cut
+
+sub content {
+    my $self = shift;
+
+    return $self->results;
+}
 
 1;
 
