@@ -1,35 +1,14 @@
 use strict;
 use warnings;
-use Test::More tests => 15;
+use Test::More tests => 6;
 
-my $CONTENT = rand();
-
-BEGIN {
-    use_ok('Carp');
-    use_ok('URI');
-    use_ok('LWP::UserAgent');
-    use_ok('HTTP::Request::Common');
-    use_ok('Class::Data::Accessor');
-    use_ok('WWW::Pastebin::Sprunge::Retrieve');
-}
 
 use WWW::Pastebin::Sprunge::Create;
 use WWW::Pastebin::Sprunge::Retrieve;
 my $writer = WWW::Pastebin::Sprunge::Create->new();
 my $reader = WWW::Pastebin::Sprunge::Retrieve->new();
 
-isa_ok($writer, 'WWW::Pastebin::Sprunge::Create');
-isa_ok($reader, 'WWW::Pastebin::Sprunge::Retrieve');
-
-can_ok($writer, qw(
-    new
-    paste
-    paste_uri
-    ua
-    _make_request_args
-    _set_error
-    )
-);
+my $CONTENT = rand();
 
 SKIP: {
     my $uri1 = $writer->paste($CONTENT) or do {
