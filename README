@@ -142,10 +142,10 @@ AVAILABILITY
     <http://search.cpan.org/dist/WWW-Pastebin-Sprunge/>.
 
     The development version lives at
-    <http://github.com/doherty/WWW-Pastebin-Sprunge-Create> and may be
-    cloned from <git://github.com/doherty/WWW-Pastebin-Sprunge-Create.git>.
-    Instead of sending patches, please fork this project using the standard
-    git and github infrastructure.
+    <http://github.com/doherty/WWW-Pastebin-Sprunge> and may be cloned from
+    <git://github.com/doherty/WWW-Pastebin-Sprunge.git>. Instead of sending
+    patches, please fork this project using the standard git and github
+    infrastructure.
 
 BUGS AND LIMITATIONS
     No bugs have been reported.
