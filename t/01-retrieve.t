@@ -13,7 +13,7 @@ my $CONTENT = rand();
 SKIP: {
     my $uri1 = $writer->paste($CONTENT) or do {
         diag "Got error on ->paste($CONTENT): " . $writer->error();
-        skip "Got error", 6;
+        skip 'Got error', 6;
     };
 
     SKIP: {
@@ -22,7 +22,7 @@ SKIP: {
             lang => 'txt',
         ) or do {
             diag "Got error on ->paste($CONTENT, lang=>'txt'): " . $writer->error();
-            skip "Got error", 2;
+            skip 'Got error', 2;
         };
         isnt($uri1, $uri2, 'Should get different URLs, even for the same content');
 

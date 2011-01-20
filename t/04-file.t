@@ -17,12 +17,12 @@ SKIP: {
     skip 't/testfile is missing', 1 unless -r 't/testfile';
     my $id = $writer->paste('t/testfile', file => 1) or do {
         diag 'Got an error on ->paste(): ' . $writer->error;
-        skip 'error', 1;
+        skip 'Got error', 1;
     };
     # print STDERR $id, "\n";
     my $ret = $reader->retrieve($id) or do {
         diag 'Got an error on ->retrieve(): ' . $reader->error;
-        skip 'error', 1;
+        skip 'Got error', 1;
     };
     open my $fh, '<:encoding(UTF-8)', 't/testfile' or die "Can't open for reading: $!";
     my $text = do { local $/; <$fh> };

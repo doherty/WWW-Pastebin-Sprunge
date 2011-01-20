@@ -23,12 +23,12 @@ my $paste = <<'';
 SKIP: {
     my $id = $writer->paste($paste) or do {
         diag 'Got an error on ->paste(): ' . $writer->error;
-        skip 2;
+        skip 'Got error', 2;
     };
     # print STDERR $id, "\n";
     my $test = $reader->retrieve($id) or do {
         diag 'Got an error on ->retrieve(): ' . $reader->error;
-        skip 2;
+        skip 'Get error', 2;
     };
     is($test, "$paste\n", 'unicode survived a round-trip OK');
 

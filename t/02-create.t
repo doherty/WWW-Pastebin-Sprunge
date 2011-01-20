@@ -11,13 +11,13 @@ my $CONTENT = "ohaithar\n\n";
 SKIP: {
     my $ret = $paster->retrieve($ID) or do {
         diag "Got error on ->retrieve($ID): " . $paster->error;
-        skip "Got error", 10;
+        skip 'Got error', 10;
     };
 
     SKIP: {
         my $ret2 = $paster->retrieve("http://sprunge.us/$ID") or do {
             diag "Got error on ->retrieve('http://sprunge.us/$ID'): " . $paster->error;
-            skip "Got error", 1;
+            skip 'Got error', 1;
         };
         is_deeply(
             $ret,
