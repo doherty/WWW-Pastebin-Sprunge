@@ -1,6 +1,8 @@
 Changelog for WWW::Pastebin::Sprunge
 
 {{$NEXT}}
+
+0.003     2011-02-01
  * Merged WWW::P::S::Create and ::Retrieve into a single repository & distribution
  * Fixed errors with unicode & expanded tests to cover these cases
  * Expanded test coverage for loading a file
