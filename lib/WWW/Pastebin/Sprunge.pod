@@ -1,0 +1,30 @@
+# ABSTRACT: access the http://sprunge.us pastebin
+# PODNAME: WWW::Pastebin::Sprunge
+
+=head1 SYNOPSIS
+
+    use WWW::Pastebin::Sprunge::Create; # to write
+    my $writer = WWW::Pastebin::Sprunge::Create->new();
+
+    use WWW::Pastebin::Sprunge::Retrieve; # to read
+    my $reader = WWW::Pastebin::Sprunge::Retrieve->new();
+
+=head1 DESCRIPTION
+
+This distribution comes with two modules:
+
+=over 4
+
+=item 1
+
+L<WWW::Pastebin::Sprunge::Create>, which allows you to write
+new pastes on L<http://sprunge.us>.
+
+=item 2
+
+L<WWW::Pastebin::Sprunge::Retrieve>, which allows you to read existing
+pastes from L<http://sprunge.us>.
+
+=back
+
+=cut

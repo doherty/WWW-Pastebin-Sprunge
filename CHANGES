@@ -1,6 +1,7 @@
 Changelog for WWW::Pastebin::Sprunge
 
 {{$NEXT}}
+ * Add lib/WWW/Pastebin/Sprunge.pod - thanks to Christian Walde
 
 0.003     2011-02-01
  * Merged WWW::P::S::Create and ::Retrieve into a single repository & distribution
