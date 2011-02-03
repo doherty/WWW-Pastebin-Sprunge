@@ -1,14 +1,8 @@
 use strict;
 use warnings;
-use Test::More tests => 12;
+use Test::More tests => 6;
 
 BEGIN {
-    use_ok('Carp');
-    use_ok('URI');
-    use_ok('LWP::UserAgent');
-    use_ok('HTTP::Request::Common');
-    use_ok('Class::Data::Accessor');
-    use_ok('WWW::Pastebin::Base::Retrieve');
     use_ok('WWW::Pastebin::Sprunge::Retrieve');
     use_ok('WWW::Pastebin::Sprunge::Create');
 }
