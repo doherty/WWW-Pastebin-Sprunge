@@ -1,9 +1,8 @@
-use strict;
-use warnings;
-
 package WWW::Pastebin::Sprunge::Retrieve;
 # ABSTRACT: retrieves pastes from the sprunge.us pastebin
-
+use strict;
+use warnings;
+# VERSION
 use URI;
 use Carp;
 use LWP::UserAgent;

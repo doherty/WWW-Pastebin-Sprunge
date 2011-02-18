@@ -1,8 +1,8 @@
-use strict;
-use warnings;
 package WWW::Pastebin::Sprunge::Create;
 # ABSTRACT: create new pastes on sprunge.us
-
+use strict;
+use warnings;
+# VERSION
 use Carp;
 use URI;
 use LWP::UserAgent;
