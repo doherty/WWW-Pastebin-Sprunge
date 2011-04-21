@@ -1,6 +1,8 @@
 Changelog for WWW::Pastebin::Sprunge
 
 {{$NEXT}}
+
+0.006     2011-04-21
  * Avoid some deprecation warnings in 5.14.0-RC1
 
 0.005     2011-02-02
