@@ -1,14 +1,13 @@
 package WWW::Pastebin::Sprunge::Retrieve;
-# ABSTRACT: retrieves pastes from the sprunge.us pastebin
 use strict;
 use warnings;
+# ABSTRACT: retrieves pastes from the sprunge.us pastebin
 # VERSION
 use URI;
 use Carp;
 use LWP::UserAgent;
 use Encode;
 use base 'Class::Data::Accessor';
-
 __PACKAGE__->mk_classaccessors(qw(
     ua
     uri
@@ -240,5 +239,3 @@ sub content {
 }
 
 1;
-
-__END__

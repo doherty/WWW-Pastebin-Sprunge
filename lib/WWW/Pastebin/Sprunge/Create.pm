@@ -1,7 +1,7 @@
 package WWW::Pastebin::Sprunge::Create;
-# ABSTRACT: create new pastes on sprunge.us
 use strict;
 use warnings;
+# ABSTRACT: create new pastes on sprunge.us
 # VERSION
 use Carp;
 use URI;
@@ -9,11 +9,11 @@ use LWP::UserAgent;
 use HTTP::Request::Common;
 use Encode;
 use base 'Class::Data::Accessor';
-__PACKAGE__->mk_classaccessors qw(
+__PACKAGE__->mk_classaccessors(qw(
     ua
     paste_uri
     error
-);
+));
 
 use overload q|""| => sub { shift->paste_uri; };
 
@@ -80,7 +80,7 @@ set to as well as C<agent> argument is set to mimic Firefox.
 
 sub new {
     my $class = shift;
-    croak "Must have even number of arguments to new()"
+    croak 'Must have even number of arguments to new()'
         if @_ & 1;
 
     my %args = @_;
@@ -159,14 +159,14 @@ sub paste {
 
     $self->$_(undef) for qw(paste_uri error);
 
-    defined $text or carp "Undefined paste content" and return;
+    defined $text or carp 'Undefined paste content' and return;
 
-    croak "Must have even number of optional arguments to paste()"
+    croak 'Must have even number of optional arguments to paste()'
         if @_ & 1;
 
     my %args = @_;
     %args = (
-        sprunge     => $text,
+        sprunge => $text,
         %args,
     );
 
@@ -174,7 +174,7 @@ sub paste {
 
     $args{file}
         and not -e $args{sprunge}
-        and return $self->_set_error("File $args{'sprunge'} does not seem to exist");
+        and return $self->_set_error("File $args{sprunge} does not seem to exist");
 
     my $ua = $self->ua;
     $ua->requests_redirectable( [ ] );
@@ -269,5 +269,3 @@ to C<paste()>.
 =cut
 
 1;
-
-__END__

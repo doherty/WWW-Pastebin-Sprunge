@@ -1,6 +1,7 @@
 Changelog for WWW::Pastebin::Sprunge
 
 {{$NEXT}}
+ * Avoid some deprecation warnings in 5.14.0-RC1
 
 0.005     2011-02-02
  * Fix test suite
