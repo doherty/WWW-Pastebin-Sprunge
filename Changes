@@ -1,6 +1,7 @@
 Changelog for WWW::Pastebin::Sprunge
 
 {{$NEXT}}
+ * Update test suite for purged paste
 
 0.006     2011-04-21
  * Avoid some deprecation warnings in 5.14.0-RC1

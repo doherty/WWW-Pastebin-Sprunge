@@ -5,8 +5,8 @@ use Test::More tests => 10;
 use WWW::Pastebin::Sprunge::Retrieve;
 my $paster = WWW::Pastebin::Sprunge::Retrieve->new( timeout => 10 );
 
-my $ID = 'SCLg';
-my $CONTENT = "ohaithar\n\n";
+my $ID = 'cQVR';
+my $CONTENT = "ohaithar\n";
 
 SKIP: {
     my $ret = $paster->retrieve($ID) or do {
