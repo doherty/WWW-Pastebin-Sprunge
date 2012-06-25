@@ -2,40 +2,44 @@
 use strict;
 use warnings;
 
-BEGIN { require 5.008; }
+use 5.008;
 
-use ExtUtils::MakeMaker 6.31;
+use ExtUtils::MakeMaker 6.30;
 
 
 
 my %WriteMakefileArgs = (
-  'ABSTRACT' => 'create new pastes on sprunge.us',
-  'AUTHOR' => 'Mike Doherty <doherty@cpan.org>',
-  'BUILD_REQUIRES' => {
-    'File::Find' => '0',
-    'File::Temp' => '0',
-    'Test::More' => '0',
-    'utf8' => '0'
+  "ABSTRACT" => "create new pastes on sprunge.us",
+  "AUTHOR" => "Mike Doherty <doherty\@cpan.org>",
+  "BUILD_REQUIRES" => {
+    "File::Find" => 0,
+    "File::Temp" => 0,
+    "Module::Build" => "0.3601",
+    "Test::More" => 0,
+    "utf8" => 0
   },
-  'CONFIGURE_REQUIRES' => {
-    'ExtUtils::MakeMaker' => '6.31'
+  "CONFIGURE_REQUIRES" => {
+    "Module::Build" => "0.3601"
   },
-  'DISTNAME' => 'WWW-Pastebin-Sprunge',
-  'EXE_FILES' => [],
-  'LICENSE' => 'perl',
-  'NAME' => 'WWW::Pastebin::Sprunge',
-  'PREREQ_PM' => {
-    'Carp' => '0',
-    'Class::Data::Accessor' => '0',
-    'Encode' => '0',
-    'HTTP::Request::Common' => '0',
-    'LWP::UserAgent' => '0',
-    'URI' => '0',
-    'overload' => '0'
+  "DISTNAME" => "WWW-Pastebin-Sprunge",
+  "EXE_FILES" => [],
+  "LICENSE" => "perl",
+  "NAME" => "WWW::Pastebin::Sprunge",
+  "PREREQ_PM" => {
+    "Carp" => 0,
+    "Class::Data::Accessor" => 0,
+    "Encode" => 0,
+    "HTTP::Request::Common" => 0,
+    "LWP::UserAgent" => 0,
+    "URI" => 0,
+    "base" => 0,
+    "overload" => 0,
+    "strict" => 0,
+    "warnings" => 0
   },
-  'VERSION' => '0.006',
-  'test' => {
-    'TESTS' => 't/*.t'
+  "VERSION" => "0.007",
+  "test" => {
+    "TESTS" => "t/*.t"
   }
 );
 
