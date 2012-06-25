@@ -1,6 +1,8 @@
 Changelog for WWW::Pastebin::Sprunge
 
 {{$NEXT}}
+
+0.007     2012-06-25
  * Update test suite for purged paste
 
 0.006     2011-04-21
