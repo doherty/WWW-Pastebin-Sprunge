@@ -34,7 +34,7 @@ SKIP: {
 
     my $test2 = $reader->retrieve('GGOD') or do {
         diag 'Got an error on ->retrieve(): ' . $reader->error;
-        skip 1;
+        skip 'Get error', 1;
     };
     is($test2, $test, q{We didn't get symmetrical corruption});
 }
