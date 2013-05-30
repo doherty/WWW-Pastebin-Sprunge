@@ -3,9 +3,9 @@ use warnings;
 use Test::More tests => 10;
 
 use WWW::Pastebin::Sprunge::Retrieve;
-my $paster = WWW::Pastebin::Sprunge::Retrieve->new( timeout => 10 );
+my $paster = WWW::Pastebin::Sprunge::Retrieve->new( timeout => 1 );
 
-my $ID = 'cQVR';
+my $ID = 'MjPH';
 my $CONTENT = "ohaithar\n";
 
 SKIP: {
