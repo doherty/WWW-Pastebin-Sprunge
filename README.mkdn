@@ -4,7 +4,7 @@ WWW::Pastebin::Sprunge::Create - create new pastes on sprunge.us
 
 # VERSION
 
-version 0.007
+version 0.008
 
 # SYNOPSIS
 
@@ -155,7 +155,7 @@ to `paste()`.
 
 # AVAILABILITY
 
-The project homepage is [http://p3rl.org/WWW::Pastebin::Sprunge](http://p3rl.org/WWW::Pastebin::Sprunge).
+The project homepage is [http://metacpan.org/release/WWW-Pastebin-Sprunge/](http://metacpan.org/release/WWW-Pastebin-Sprunge/).
 
 The latest version of this module is available from the Comprehensive Perl
 Archive Network (CPAN). Visit [http://www.perl.com/CPAN/](http://www.perl.com/CPAN/) to find a CPAN
