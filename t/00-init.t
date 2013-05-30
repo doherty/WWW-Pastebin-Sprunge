@@ -15,7 +15,6 @@ can_ok($writer, qw(
     paste
     paste_uri
     ua
-    _make_request_args
     _set_error
 ) );
 

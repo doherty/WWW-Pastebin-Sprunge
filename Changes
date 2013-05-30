@@ -1,6 +1,7 @@
 Changelog for WWW::Pastebin::Sprunge
 
 {{$NEXT}}
+ * File contents are no longer slurped [GH#1]
 
 0.007     2012-06-25
  * Update test suite for purged paste

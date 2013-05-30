@@ -19,7 +19,7 @@ SKIP: {
         diag 'Got an error on ->paste(): ' . $writer->error;
         skip 'Got error', 1;
     };
-    # print STDERR $id, "\n";
+    note $id;
     my $ret = $reader->retrieve($id) or do {
         diag 'Got an error on ->retrieve(): ' . $reader->error;
         skip 'Got error', 1;
