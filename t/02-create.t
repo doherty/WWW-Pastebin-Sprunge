@@ -1,71 +1,41 @@
 use strict;
 use warnings;
-use Test::More tests => 10;
+use Test::More tests => 6;
 
+
+use WWW::Pastebin::Sprunge::Create;
 use WWW::Pastebin::Sprunge::Retrieve;
-my $paster = WWW::Pastebin::Sprunge::Retrieve->new( timeout => 10 );
+my $writer = WWW::Pastebin::Sprunge::Create->new();
+my $reader = WWW::Pastebin::Sprunge::Retrieve->new();
 
-my $ID = 'cQVR';
-my $CONTENT = "ohaithar\n";
+my $CONTENT = rand();
 
 SKIP: {
-    my $ret = $paster->retrieve($ID) or do {
-        diag "Got error on ->retrieve($ID): " . $paster->error;
-        skip 'Got error', 10;
+    my $uri1 = $writer->paste($CONTENT) or do {
+        diag "Got error on ->paste($CONTENT): " . $writer->error();
+        skip 'Got error', 6;
     };
 
     SKIP: {
-        my $ret2 = $paster->retrieve("http://sprunge.us/$ID") or do {
-            diag "Got error on ->retrieve('http://sprunge.us/$ID'): " . $paster->error;
-            skip 'Got error', 1;
+        my $uri2 = $writer->paste(
+            $CONTENT,
+            lang => 'txt',
+        ) or do {
+            diag "Got error on ->paste($CONTENT, lang=>'txt'): " . $writer->error();
+            skip 'Got error', 2;
         };
-        is_deeply(
-            $ret,
-            $ret2,
-            'calls with ID and URI must return the same'
-        );
-    }
-    SKIP: {
-        my $ret3 = $paster->retrieve("http://sprunge.us/$ID?txt") or do {
-            diag "Got error on ->retrieve('http://sprunge.us/$ID?txt'): " . $paster->error();
-            skip "Got error", 1;
-        };
-        is_deeply(
-            $ret,
-            $ret3,
-            'calls with a format parameter must return the same'
-        );
+        isnt($uri1, $uri2, 'Should get different URLs, even for the same content');
+
+        my $content1 = $reader->retrieve($uri1);
+        my $content2 = $reader->retrieve($uri2);
+        is($content1, $content2, 'Should get the same content, even for different URLs');
     }
 
-    is_deeply(
-        $ret,
-        $CONTENT,
-        q{dump from Dumper must match ->retrieve()'s response},
-    );
+    isa_ok( $writer->paste_uri(), 'URI::http', '->paste_uri() method' );
 
-    is_deeply(
-        $ret,
-        $paster->results(),
-        '->results() must now return whatever ->retrieve() returned',
-    );
+    like("$writer", qr{http://sprunge.us/\S+(?:\?\S+)?}, 'URL should be correctish');
 
-    is(
-        $paster->id(),
-        $ID,
-        'paste ID must match the return from ->id()',
-    );
+    isa_ok( $writer->ua(), 'LWP::UserAgent', '->ua() method' );
 
-    isa_ok( $paster->uri(), 'URI::http', '->uri() method' );
-
-    is(
-        $paster->uri(),
-        "http://sprunge.us/$ID",
-        'uri() must contain a URI to the paste',
-    );
-
-    isa_ok( $paster->ua(), 'LWP::UserAgent', '->ua() method' );
-
-    is( "$paster", $ret, 'overloads');
-
-    is( $paster->content(), $ret, 'content()');
+    is( "$writer", $writer->paste_uri(), 'overloads');
 }
