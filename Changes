@@ -1,6 +1,8 @@
 Changelog for WWW::Pastebin::Sprunge
 
 {{$NEXT}}
+
+0.009     2013-08-02
   - Declare all tests requiring an internet connection
     as "extended". Set EXTENDED_TESTING=1 in your
     environment to enable these tests.

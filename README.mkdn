@@ -4,7 +4,7 @@ WWW::Pastebin::Sprunge::Create - create new pastes on sprunge.us
 
 # VERSION
 
-version 0.008
+version 0.009
 
 # SYNOPSIS
 
