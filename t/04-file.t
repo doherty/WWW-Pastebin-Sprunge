@@ -1,5 +1,6 @@
 use strict;
 use warnings;
+use Test::Is qw/extended/;
 use Test::More tests => 1;
 
 my $builder = Test::More->builder;

@@ -1,6 +1,7 @@
 use strict;
 use warnings;
 use utf8;
+use Test::Is qw/extended/;
 use Test::More tests => 1;
 
 my $builder = Test::More->builder;

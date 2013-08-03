@@ -1,11 +1,12 @@
 use strict;
 use warnings;
+use Test::Is qw/extended/;
 use Test::More tests => 10;
 
 use WWW::Pastebin::Sprunge::Retrieve;
 my $paster = WWW::Pastebin::Sprunge::Retrieve->new( timeout => 1 );
 
-my $ID = 'MjPH';
+my $ID = 'WUSL';
 my $CONTENT = "ohaithar\n";
 
 SKIP: {
