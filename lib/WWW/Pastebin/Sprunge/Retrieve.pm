@@ -176,7 +176,7 @@ sub _parse {
     if (!defined($content) or !length($content)) {
         return $self->_set_error('Nothing to parse (empty document retrieved)');
     }
-    elsif ($content eq "$id not found") {
+    elsif ($content =~ m{\A$id not found.\Z}) {
         return $self->_set_error('No such paste');
     }
     else {

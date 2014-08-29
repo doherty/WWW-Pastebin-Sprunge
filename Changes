@@ -1,6 +1,7 @@
 Changelog for WWW::Pastebin::Sprunge
 
 {{$NEXT}}
+  - Detect missing content more reliably
 
 0.009     2013-08-02
   - Declare all tests requiring an internet connection
