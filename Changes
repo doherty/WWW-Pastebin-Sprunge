@@ -1,6 +1,8 @@
 Changelog for WWW::Pastebin::Sprunge
 
 {{$NEXT}}
+
+0.010     2014-08-29
   - Detect missing content more reliably
 
 0.009     2013-08-02

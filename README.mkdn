@@ -4,7 +4,7 @@ WWW::Pastebin::Sprunge::Create - create new pastes on sprunge.us
 
 # VERSION
 
-version 0.009
+version 0.010
 
 # SYNOPSIS
 
@@ -49,19 +49,19 @@ as follows:
 
     ->new( timeout => 10 );
 
-__Optional__. Specifies the `timeout` argument of [LWP::UserAgent](http://search.cpan.org/perldoc?LWP::UserAgent)'s
-constructor, which is used for pasting. __Defaults to:__ `30` seconds.
+**Optional**. Specifies the `timeout` argument of [LWP::UserAgent](https://metacpan.org/pod/LWP::UserAgent)'s
+constructor, which is used for pasting. **Defaults to:** `30` seconds.
 
 ### ua
 
     ->new( ua => LWP::UserAgent->new( agent => 'Foos!' ) );
 
-__Optional__. If the `timeout` argument is not enough for your needs
-of mutilating the [LWP::UserAgent](http://search.cpan.org/perldoc?LWP::UserAgent) object used for pasting, feel free
-to specify the `ua` argument which takes an [LWP::UserAgent](http://search.cpan.org/perldoc?LWP::UserAgent) object
-as a value. __Note:__ the `timeout` argument to the constructor will
-not do anything if you specify the `ua` argument as well. __Defaults to:__
-plain boring default [LWP::UserAgent](http://search.cpan.org/perldoc?LWP::UserAgent) object with `timeout` argument
+**Optional**. If the `timeout` argument is not enough for your needs
+of mutilating the [LWP::UserAgent](https://metacpan.org/pod/LWP::UserAgent) object used for pasting, feel free
+to specify the `ua` argument which takes an [LWP::UserAgent](https://metacpan.org/pod/LWP::UserAgent) object
+as a value. **Note:** the `timeout` argument to the constructor will
+not do anything if you specify the `ua` argument as well. **Defaults to:**
+plain boring default [LWP::UserAgent](https://metacpan.org/pod/LWP::UserAgent) object with `timeout` argument
 set to whatever `WWW::Pastebin::Sprunge::Create`'s `timeout` argument is
 set to as well as `agent` argument is set to mimic Firefox.
 
@@ -81,7 +81,7 @@ set to as well as `agent` argument is set to mimic Firefox.
 Instructs the object to create a new paste. If an error occured during
 pasting will return either `undef` or an empty list depending on the context
 and the reason for the error will be available via `error()` method.
-On success returns a [URI](http://search.cpan.org/perldoc?URI) object pointing to a newly created paste.
+On success returns a [URI](https://metacpan.org/pod/URI) object pointing to a newly created paste.
 The first argument is mandatory and must be either a scalar containing
 the text to paste or a filename. The rest of the arguments are optional
 and are passed in a key/value fashion. Possible arguments are as follows:
@@ -90,31 +90,31 @@ and are passed in a key/value fashion. Possible arguments are as follows:
 
     $sprunge->paste( 'paste.txt', file => 1 );
 
-__Optional__.
+**Optional**.
 When set to a true valu
 filename of the file containing the text to paste. When set to a false
 value the object will treat the first argument as a scalar containing
-the text to be pasted. __Defaults to:__ `0`
+the text to be pasted. **Defaults to:** `0`
 
 ### nick
 
     $sprunge->paste( 'some text', nick => 'Zoffix' );
 
-__Optional__. Takes a scalar as a value which specifies the nick of the
-person creating the paste. __Defaults to:__ empty string (no nick)
+**Optional**. Takes a scalar as a value which specifies the nick of the
+person creating the paste. **Defaults to:** empty string (no nick)
 
 ### desc
 
     $sprunge->paste( 'some text', desc => 'some l33t codez' );
 
-__Optional__. Takes a scalar as a value which specifies the description of
-the paste. __Defaults to:__ empty string (no description)
+**Optional**. Takes a scalar as a value which specifies the description of
+the paste. **Defaults to:** empty string (no description)
 
 ### lang
 
     $sprunge->paste( 'some text', lang => 'perl' );
 
-__Optional__. Takes a scalar as a value which must be one of predefined
+**Optional**. Takes a scalar as a value which must be one of predefined
 language codes and specifies (computer) language of the paste, in other
 words which syntax highlighting to use. Since sprunge.us uses Pygments
 for syntax highlighting, available languages are [http://pygments.org/languages/](http://pygments.org/languages/).
@@ -137,7 +137,7 @@ we failed.
     print "Paste can be found on $sprunge\n";
 
 Must be called after a successfull call to `paste()`. Takes no arguments,
-returns a [URI](http://search.cpan.org/perldoc?URI) object pointing to a paste created by the last call
+returns a [URI](https://metacpan.org/pod/URI) object pointing to a paste created by the last call
 to `paste()`, i.e. the return value of the last `paste()` call. This
 method is overloaded as `q|""` thus you can simply interpolate your
 object in a string to obtain the paste URI.
@@ -148,8 +148,8 @@ object in a string to obtain the paste URI.
 
     $sprunge->ua( LWP::UserAgent->new( timeout => 10, agent => 'foos' );
 
-Returns a currently used [LWP::UserAgent](http://search.cpan.org/perldoc?LWP::UserAgent) object. Takes one
-optional argument which must be an [LWP::UserAgent](http://search.cpan.org/perldoc?LWP::UserAgent) object,
+Returns a currently used [LWP::UserAgent](https://metacpan.org/pod/LWP::UserAgent) object. Takes one
+optional argument which must be an [LWP::UserAgent](https://metacpan.org/pod/LWP::UserAgent) object,
 and the object you specify will be used in any subsequent calls
 to `paste()`.
 

@@ -2,7 +2,7 @@ NAME
     WWW::Pastebin::Sprunge::Create - create new pastes on sprunge.us
 
 VERSION
-    version 0.009
+    version 0.010
 
 SYNOPSIS
         use strict;
